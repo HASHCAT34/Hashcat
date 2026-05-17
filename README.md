@@ -1,161 +1,203 @@
-Hashcat is an advanced password recovery and security auditing tool widely used by penetration testers, cybersecurity researchers, and digital forensics professionals. It is known for its extremely fast hash-cracking performance using GPUs, CPUs, and other hardware accelerators.
+Hashcat
+Hashcat is an advanced password recovery and security auditing tool that uses GPU, CPU, and hardware acceleration to crack cryptographic hashes at extremely high speeds. It is widely used by penetration testers, cybersecurity researchers, and digital forensics professionals.
 What Hashcat Does
-Hashcat attempts to recover plaintext passwords from hashed data. A hash is a one-way cryptographic representation of data, commonly used to store passwords securely.
-For example:
-Password: mypassword123
-Hash: 482c811da5d5b4bc6d497ffa98491e38
+Hashcat recovers plaintext passwords from hashed data. A hash is a one-way cryptographic representation of data, commonly used to store passwords securely.
+Example:
+ 
+Password:  mypassword123 
+ 
+Hash:  482c811da5d5b4bc6d497ffa98491e38 
 Hashcat tries millions or billions of password combinations until it finds the original password that matches the hash.
 Main Uses
+ 
 Password recovery
+ 
 Security auditing
+ 
 Penetration testing
+ 
 Digital forensics
+ 
 Testing password strength policies
+ 
 Research on password vulnerabilities
 Key Features
 GPU Acceleration
-Hashcat uses GPUs from:
-NVIDIA
-AMD
+Hashcat leverages GPUs from:
+ 
+NVIDIA (CUDA)
+ 
+AMD (OpenCL)
+ 
 Intel
 This makes it significantly faster than CPU-only tools.
-Supports Hundreds of Hash Types
-Including:
+Supported Hash Types
+Hashcat supports hundreds of algorithms, including:
+Table
+Hash Type
+Mode
 MD5
+ -m 0 
 SHA1
+ -m 100 
 SHA256
+ -m 1400 
 SHA512
+ -m 1700 
 bcrypt
-WPA/WPA2 Wi-Fi hashes
+ -m 3200 
 NTLM
+ -m 1000 
+WPA/WPA2
+ -m 22000 
 Kerberos
+ -m 13100 
 ZIP/RAR/7z archives
+Various
 Linux password hashes
-Cryptocurrency wallet hashes
+Various
+Cryptocurrency wallets
+Various
 Attack Modes
-Hashcat includes several attack strategies:
-Dictionary Attack
+Dictionary Attack ( -a 0 )
 Uses wordlists containing common passwords.
-Example:
-Bash
-hashcat -m 0 hashes.txt rockyou.txt
-Brute Force Attack
+bash
+Brute Force Attack ( -a 3 )
 Attempts every possible combination.
-Example:
-Bash
-hashcat -a 3 hashes.txt ?a?a?a?a?a?a
-Mask Attack
-Targets structured passwords.
-Example:
-Bash
-hashcat -a 3 hashes.txt Password?d?d
-Rule-Based Attack
-Modifies words intelligently:
-adding numbers
-capitalization
-substitutions
-Example:
-Bash
-password → Password123
+bash
+Mask Attack ( -a 3 )
+Targets structured passwords using placeholders.
+bash
+Rule-Based Attack ( -a 0  with rules)
+Modifies words intelligently (adding numbers, capitalization, substitutions).
+bash
 Hybrid Attack
-Combines dictionary + brute force.
-Common Hash Modes
-Examples:
--m 0 → MD5
--m 1000 → NTLM
--m 22000 → WPA-PBKDF2
--m 3200 → bcrypt
-Platforms Supported
+Combines dictionary + brute force approaches.
+Platforms & Requirements
+Supported Platforms
+ 
 Linux
+ 
 Windows
+ 
 macOS
 Hardware Requirements
-Works best with:
-Modern GPUs
-Large VRAM
-Updated drivers
+Table
+Component
+Recommendation
+GPU
+Modern NVIDIA/AMD with large VRAM
+Drivers
+Updated NVIDIA/AMD drivers
+APIs
 OpenCL or CUDA support
-Popular setups:
-RTX 3060/3070/4090
+Popular GPU Setups:
+ 
+NVIDIA RTX 3060/3070/4090
+ 
 AMD RX series GPUs
 Installation
 Linux
-Bash
-sudo apt install hashcat
+bash
 Windows
-Download from:
-�
-hashcat.net
+Download from hashcat.net
+macOS
+bash
 Basic Workflow
-Obtain hashes
-Identify hash type
-Choose attack mode
-Select wordlist or mask
-Run Hashcat
-Analyze recovered passwords
-Important Companion Tools
+1. 
+Obtain hashes — Extract hashes from target systems
+2. 
+Identify hash type — Use  hash-identifier  or reference documentation
+3. 
+Choose attack mode — Select dictionary, brute force, rules, or hybrid
+4. 
+Prepare wordlist/mask — Select appropriate wordlist or define mask
+5. 
+Run Hashcat — Execute with correct parameters
+6. 
+Analyze results — Review recovered passwords and assess strength
+Essential Companion Tools
+Table
+Tool
+Purpose
 Hash-Identifier
-Helps identify unknown hash formats.
+Identify unknown hash formats
 John the Ripper
-Another major password auditing tool.
+Alternative password auditing tool
 hcxtools
-Used for WPA/WPA2 capture conversion.
+Convert WPA/WPA2 captures for Hashcat
 Popular Wordlists
+Table
+Wordlist
+Description
 rockyou.txt
-One of the most famous password dictionaries.
+Famous leaked password dictionary
 SecLists
-Large collection of security-related lists.
-�
-github.com
+Large collection of security-related lists (GitHub)
 Performance
 Hashcat is famous for speed:
-Billions of hashes/sec on fast GPUs
-Distributed cracking support
-Multi-GPU support
-Performance depends heavily on:
-Algorithm complexity
-Hardware
-Password length
-bcrypt is intentionally slower than MD5.
-Legal & Ethical Use
-Hashcat should only be used for:
-Systems you own
-Authorized penetration tests
-Password recovery you have permission for
-Unauthorized password cracking may violate laws and policies.
+ 
+Billions of hashes/sec on high-end GPUs
+ 
+Distributed cracking support across multiple machines
+ 
+Multi-GPU support for scaling
+Performance factors:
+ 
+Algorithm complexity (bcrypt is intentionally slower than MD5)
+ 
+Hardware specifications
+ 
+Password length and character set
 Example Commands
 MD5 Dictionary Attack
-Bash
-hashcat -m 0 -a 0 hashes.txt wordlist.txt
-NTLM Brute Force
-Bash
-hashcat -m 1000 -a 3 hashes.txt ?a?a?a?a?a?a?a
-WPA/WPA2 Wi-Fi
-Bash
-hashcat -m 22000 capture.hc22000 rockyou.txt
+bash
+NTLM Brute Force (7 characters)
+bash
+WPA/WPA2 Wi-Fi Cracking
+bash
+Using Rules
+bash
+Legal & Ethical Use
+Hashcat should only be used for:
+ 
+Systems you own
+ 
+Authorized penetration tests with written permission
+ 
+Password recovery you have legal right to perform
+Warning: Unauthorized password cracking may violate laws (CFAA, Computer Misuse Act, etc.) and organizational policies.
 Learning Resources
+Table
+Resource
+Link
 Official Documentation
-�
 hashcat.net
 Example Hashes
-�
-hashcat.net
-GitHub
-�
-github.com
-Why It’s Popular
-Hashcat is considered one of the fastest and most flexible password auditing tools because of:
-Huge algorithm support
-GPU optimization
-Advanced attack customization
-Strong community support
-Frequent updates
-It is heavily used in:
-Red teaming
-Capture-the-flag competitions
+hashcat.net/wiki/doku.php?id=example_hashes
+GitHub Repository
+github.com/hashcat/hashcat
+Why Hashcat Is Popular
+ 
+Huge algorithm support — Hundreds of hash types
+ 
+GPU optimization — Maximum hardware utilization
+ 
+Advanced attack customization — Rules, masks, hybrid modes
+ 
+Strong community — Active forums and contributors
+ 
+Frequent updates — Regular improvements and new features
+Common use cases:
+ 
+Red teaming exercises
+ 
+Capture-the-flag (CTF) competitions
+ 
 Security research
-Enterprise audits
-Incident response investigations# Hashcat
-Hashcat is a powerful password recovery and auditing tool that uses CPU and GPU acceleration to crack hashes at high speed. It helps security professionals test password strength, recover lost credentials, and assess system security using multiple attack modes and algorithms.
-contact on telegram 
+ 
+Enterprise security audits
+ 
+Incident response investigations
+for more information or to buy licenses contact me on telegram 
 https://t.me/HASHCAT23
